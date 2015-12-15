@@ -1,5 +1,4 @@
 {% load staticfiles %}
-
 <html>
 
     <head>
@@ -13,7 +12,6 @@
     <body>
         <div class="page-header">
 			<a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
-			
             <h1><a href="/">Django Girls Blog</a></h1>
 			
         </div>
@@ -22,18 +20,11 @@
     <div class="row">
         <div class="col-md-8">
             {% block content %}
-    <div class="post">
-        {% if post.published_date %}
-            <div class="date">
-                {{ post.published_date }}
-            </div>
-        {% endif %}
-		{% if user.is_authenticated %}
-			<a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
-		{% endif %}
-        <h1>{{ post.title }}</h1>
-        <p>{{ post.text|linebreaks }}</p>
-    </div>
+    <h1>New post</h1>
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
 {% endblock %}
         </div>
     </div>
