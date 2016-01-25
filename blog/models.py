@@ -17,3 +17,23 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+        
+
+def json_default_post(self):
+    domain = 'https://python.web.id'
+    cover_url = 'None'
+    try:
+        cover_url = domain+str(self.cover.url)
+    except:
+        cover_url = cover_url
+
+    return dict(
+            title = self.title, 
+            url = domain+"/blog/"+str(self.slug), 
+            cover =  cover_url,
+            author = self.author.name, 
+            created = self.created.isoformat(), 
+            modified = self.modified.isoformat(), 
+            tags = [p.slug for p in self.tags.all()], 
+            body = self.body
+        )
